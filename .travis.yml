@@ -1,0 +1,22 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t aagupt/react-test -f ./client/Dockerfile.dev ./client
+
+scripts:
+    - docker run -e -CI=true aagupt/react-test npm test
+
+after_success:
+    - docker build -t aagupt/multi-client ./client
+    - docker build -t aagupt/multi-nginx ./nginx
+    - docker build -t aagupt/multi-server ./server
+    - docker build -t aagupt/multi-worker ./worker
+    # Log in to the docker CLI. 
+    docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
+    # Take those images and push them to docker hub. 
+    - docker push aagupt/multi-client
+    - docker push aagupt/multi-nginx
+    - docker push aagupt/multi-server
+    - docker push aagupt/multi-worker
