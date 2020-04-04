@@ -8,15 +8,13 @@ before_install:
 script:
     - docker run -e -CI=true aagupt/react-test npm test
 
-# after_success:
-#     - docker build -t aagupt/multi-client ./client
-#     - docker build -t aagupt/multi-nginx ./nginx
-#     - docker build -t aagupt/multi-server ./server
-#     - docker build -t aagupt/multi-worker ./worker
-#     # Log in to the docker CLI. 
-#     docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
-#     # Take those images and push them to docker hub. 
-#     - docker push aagupt/multi-client
-#     - docker push aagupt/multi-nginx
-#     - docker push aagupt/multi-server
-#     - docker push aagupt/multi-worker
+after_success:
+    - docker build -t aagupt/multi-client ./client
+    - docker build -t aagupt/multi-nginx ./nginx
+    - docker build -t aagupt/multi-server ./server
+    - docker build -t aagupt/multi-worker ./worker
+    docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
+    - docker push aagupt/multi-client
+    - docker push aagupt/multi-nginx
+    - docker push aagupt/multi-server
+    - docker push aagupt/multi-worker
