@@ -13,7 +13,7 @@ after_success:
     - docker build -t aagupt/multi-nginx ./nginx
     - docker build -t aagupt/multi-server ./server
     - docker build -t aagupt/multi-worker ./worker
-    docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
+    - docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
     - docker push aagupt/multi-client
     - docker push aagupt/multi-nginx
     - docker push aagupt/multi-server
