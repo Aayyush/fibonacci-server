@@ -4,7 +4,7 @@
         {
             "name": "client",
             "image": "aagupt/multi-client",
-            "hostname": "frontend_client",
+            "hostname": "frontendClient",
             "essential": false,
             "memoryReservation": 128
         },
